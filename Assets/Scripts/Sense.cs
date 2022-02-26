@@ -9,7 +9,7 @@ namespace Assets.Scripts
     public class Sense
     {
         public float Distance;
-        public Block HitType;
+        public Block Block;
         public float Angle;
 
 

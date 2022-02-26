@@ -14,12 +14,13 @@ public class Ant : MonoBehaviour, IAnt
     private float direction = 0f;
     private float turnAmount = 0f;
     private float totalTurn = 0f;
-
-    public NavStatus NavStatus;
+    private Block _currentBlock;
+    public NavigationStatus NavStatus;
     public AntStatus Status;
     public IMap Map;
     public GameObject Hive_F;
     public float Hive_F_Expiry;
+    public int SightDistance;
     // Start is called before the first frame update
     void Start()
     {
@@ -29,11 +30,21 @@ public class Ant : MonoBehaviour, IAnt
     // Update is called once per frame
     void Update()
     {
-        MoveRandom();
+        if (NavStatus == NavigationStatus.NAVIGATING)
+            MoveRandom();
+        else if (NavStatus == NavigationStatus.RETURNING)
+            FoodNav();
         
     }
 
+    List<Sense> GetSenses()
+    {
+        return null;
+    }
+    void FoodNav()
+    {
 
+    }
     void MoveRandom()
     {
         currentDecisionRateTime += Time.deltaTime;
@@ -51,13 +62,17 @@ public class Ant : MonoBehaviour, IAnt
 
 
         Vector3 mapCoords = Map.GetTransform().InverseTransformPoint(newPos);
-        
-        if (Map.GetBlock(mapCoords.x, mapCoords.z).IsPathway)
+        Block futureBlock = Map.GetBlock(mapCoords.x, mapCoords.z);
+        if (futureBlock.IsPathway)
         {
-            Destroy(Instantiate(Hive_F, transform.position, Quaternion.identity), Hive_F_Expiry);
-            
-            Map.AddBlockInfo(mapCoords.x, mapCoords.z, new Hive_F(Hive_F_Expiry));
-            Map.AddBlockInfo(mapCoords.x, mapCoords.z, new AntB(this));
+            if (_currentBlock == null || _currentBlock != futureBlock)
+            {
+                _currentBlock = futureBlock;
+                Destroy(Instantiate(Hive_F, transform.position, Quaternion.identity), Hive_F_Expiry);
+
+                Map.AddBlockInfo(mapCoords.x, mapCoords.z, new Hive_F(Hive_F_Expiry));
+                Map.AddBlockInfo(mapCoords.x, mapCoords.z, new AntB(this));
+            }
             transform.position = newPos;
         }
     }

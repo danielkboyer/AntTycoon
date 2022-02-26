@@ -1,4 +1,4 @@
-﻿public enum NavStatus
+﻿public enum NavigationStatus
 {
     NAVIGATING,
     FIGHTING,

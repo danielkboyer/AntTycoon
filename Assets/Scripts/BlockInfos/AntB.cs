@@ -8,7 +8,7 @@ namespace Assets.Scripts.BlockInfos
 {
     public class AntB : IBlockInfo
     {
-        public NavStatus NavStatus;
+        public NavigationStatus NavStatus;
         public AntStatus Status;
         public AntB(Ant ant)
         {
