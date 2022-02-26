@@ -20,11 +20,15 @@ public class Map : MonoBehaviour, IMap
     public int XSize;
     public int ZSize;
     public float CellSpace;
-    public (bool isPath, IGrid gridObj) GetObj(float x, float y)
+    public Block GetBlock(float x, float y)
     {
         return _grid.GetObj(x, y);
     }
 
+    public void Update()
+    {
+        _grid.Update(Time.deltaTime);
+    }
     public void Paint(float x, float y, int size)
     {
         Debug.Log($"({x},{y})");
@@ -52,21 +56,33 @@ public class Map : MonoBehaviour, IMap
         {
             colors[botRight] = PathColor;
         }
-        SetObj(x, y, null,true);
-        SetObj(x+CellSpace, y, null, true);
-        SetObj(x, y+CellSpace, null, true);
-        SetObj(x+CellSpace, y+CellSpace, null, true);
+        
+        SetPath(x, y, true);
+        SetPath(x+CellSpace,y, true);
+        SetPath(x, y+CellSpace, true);
+        SetPath(x+CellSpace, y+CellSpace, true);
         UpdateMesh();
+    }
+
+    public void SetPath(float x, float y, bool isPath)
+    {
+        _grid.SetPath(x, y, isPath);
     }
 
     private int FloatToGrid(float toConvert)
     {
         return (int)Math.Floor(toConvert / CellSpace);
     }
-    public bool SetObj(float x, float y, IGrid type, bool isPath)
+
+
+    public void AddBlockInfo(float x, float y, IBlockInfo blockInfo)
     {
-        _grid.SetObj(x, y, type,isPath);
-        return true;
+        _grid.AddBlockInfo(x, y, blockInfo);
+    }
+
+    public void SetVisibility(float x, float y, float time)
+    {
+        _grid.SetVisibility(x, y, time);
     }
 
     // Start is called before the first frame update

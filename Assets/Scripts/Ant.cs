@@ -1,4 +1,5 @@
 using Assets.Scripts;
+using Assets.Scripts.BlockInfos;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,8 +15,11 @@ public class Ant : MonoBehaviour, IAnt
     private float turnAmount = 0f;
     private float totalTurn = 0f;
 
+    public NavStatus NavStatus;
+    public AntStatus Status;
     public IMap Map;
-
+    public GameObject Hive_F;
+    public float Hive_F_Expiry;
     // Start is called before the first frame update
     void Start()
     {
@@ -44,10 +48,16 @@ public class Ant : MonoBehaviour, IAnt
         transform.rotation = Quaternion.AngleAxis(totalTurn, Vector3.up);
 
         var newPos = transform.position + transform.forward * Speed * Time.deltaTime;
-        
 
-        if (Map.GetObj(Map.GetTransform().InverseTransformPoint(newPos).x, Map.GetTransform().transform.InverseTransformPoint(newPos).z).isPath)
+
+        Vector3 mapCoords = Map.GetTransform().InverseTransformPoint(newPos);
+        
+        if (Map.GetBlock(mapCoords.x, mapCoords.z).IsPathway)
         {
+            Destroy(Instantiate(Hive_F, transform.position, Quaternion.identity), Hive_F_Expiry);
+            
+            Map.AddBlockInfo(mapCoords.x, mapCoords.z, new Hive_F(Hive_F_Expiry));
+            Map.AddBlockInfo(mapCoords.x, mapCoords.z, new AntB(this));
             transform.position = newPos;
         }
     }

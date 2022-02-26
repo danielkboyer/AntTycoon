@@ -6,12 +6,10 @@ using System.Threading.Tasks;
 
 namespace Assets.Scripts
 {
-    public class Sense
+    public enum AntStatus
     {
-        public float Distance;
-        public Block HitType;
-        public float Angle;
-
+        HAS_FOOD,
+        NO_FOOD
 
     }
 }

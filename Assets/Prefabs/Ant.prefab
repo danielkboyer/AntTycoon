@@ -116,6 +116,10 @@ MonoBehaviour:
   DecisionRate: 1
   Speed: 0.62
   RotSpeed: 1
+  NavStatus: 0
+  Status: 0
+  Hive_F: {fileID: 1994841245988891728, guid: ab28de2fe929aaa4084eb65134303965, type: 3}
+  Hive_F_Expiry: 10
 --- !u!54 &2359154459944403667
 Rigidbody:
   m_ObjectHideFlags: 0

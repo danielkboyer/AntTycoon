@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace Assets.Scripts
 {
-    public class Sense
+    public interface IBlockInfo
     {
-        public float Distance;
-        public Block HitType;
-        public float Angle;
+        public DateTime CreatedAt { get; set; }
 
+        bool DeleteMe();
 
+        void Update(float deltaTime);
     }
 }

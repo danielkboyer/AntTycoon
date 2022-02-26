@@ -1,3 +1,4 @@
+using Assets.Scripts;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,7 +11,7 @@ public interface IMap
     /// <param name="x"></param>
     /// <param name="y"></param>
     /// <returns></returns>
-    (bool isPath, IGrid gridObj) GetObj(float x, float y);
+    Block GetBlock(float x, float y);
 
     /// <summary>
     /// Paints a part of the grid at x and y with size 2 meaning a square around a single unit
@@ -27,7 +28,11 @@ public interface IMap
     /// <param name="y"></param>
     /// <param name="type"></param>
     /// <returns></returns>
-    bool SetObj(float x, float y, IGrid type,bool isPath);
+    void AddBlockInfo(float x, float y, IBlockInfo blockInfo);
+
+    void SetVisibility(float x, float y, float time);
+
+    void SetPath(float x, float y, bool isPath);
 
     Transform GetTransform();
 }
