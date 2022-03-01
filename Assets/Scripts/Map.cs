@@ -88,7 +88,18 @@ public class Map : MonoBehaviour, IMap
     // Start is called before the first frame update
     void Start()
     {
-        _grid = new Assets.Scripts.Grid(XSize+1, ZSize+1, CellSpace);
+        Init();
+    }
+
+
+    (bool saved, string message) Save()
+    {
+
+        return (true,"Saved");
+    }
+    void Init()
+    {
+        _grid = new Assets.Scripts.Grid(XSize + 1, ZSize + 1, CellSpace);
         mesh = new Mesh();
         GetComponent<MeshFilter>().mesh = mesh;
 
