@@ -3,18 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using UnityEngine;
 namespace Assets.Scripts.BlockInfos
 {
-    public class Hive_F : IBlockInfo
+    public class Hive_F : BlockInfo
     {
         private bool _deleteMe = false;
 
         private float _expiryTime;
-        public DateTime CreatedAt { get; set; }
+
+      
+
+
 
         public Hive_F(float expiryTime)
         {
+            UnityObject = Resources.Load<GameObject>("Prefabs/Hive_F");
             this._expiryTime = expiryTime;
             this.CreatedAt = DateTime.UtcNow;
 
@@ -29,6 +33,7 @@ namespace Assets.Scripts.BlockInfos
             _expiryTime -= deltaTime;
             if(_expiryTime < 0)
             {
+                GameObject.Destroy(UnityObject);
                 _deleteMe = true;
             }
         }

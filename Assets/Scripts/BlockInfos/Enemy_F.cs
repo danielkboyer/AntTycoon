@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
 
 namespace Assets.Scripts.BlockInfos
 {
-    public class Enemy_F:IBlockInfo
+    public class Enemy_F:BlockInfo
     {
-        public DateTime CreatedAt { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         public bool DeleteMe()
         {

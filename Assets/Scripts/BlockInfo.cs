@@ -5,11 +5,20 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace Assets.Scripts.BlockInfos
+namespace Assets.Scripts
 {
-    public class Enemy : BlockInfo
+    [Serializable]
+    public abstract class BlockInfo
     {
-       
+
+        [SerializeField]
+        public DateTime CreatedAt;
+        [NonSerialized]
+        public GameObject UnityObject = null;
+        [SerializeField]
+        public Vector3 Position;
+
+
 
 
 
@@ -20,7 +29,9 @@ namespace Assets.Scripts.BlockInfos
 
         public void Update(float deltaTime)
         {
-            throw new NotImplementedException();
+
         }
+
+        
     }
 }

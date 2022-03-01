@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
 
 namespace Assets.Scripts.BlockInfos
 {
-    public class Food_F: IBlockInfo
+    [Serializable]
+    public class Food_F: BlockInfo
     {
-        public DateTime CreatedAt { get; set; }
-
+      
         public bool  DeleteMe()
         {
             return false;

@@ -3,42 +3,58 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
 
 namespace Assets.Scripts
 {
+    [Serializable]
     public class Grid
     {
-        private Block[,] _grid;
-
+        [SerializeField]
+        private Block[] _grid;
+        [SerializeField]
         private float _cellSize;
+        [SerializeField]
         private int _width;
+        [SerializeField]
         private int _height;
+
+        public Grid()
+        {
+
+        }
         public Grid(int width, int height, float cellSize)
         {
             this._width = width;
             this._height = height;
             this._cellSize = cellSize;
 
-            _grid = new Block[_height, _width];
+            _grid = new Block[_height*_width];
 
-            for(int x = 0; x < _height; x++)
+            for(int y = 0; y < _height; y++)
             {
-                for(int y = 0; y < _width; y++)
+                for(int x = 0; x < _width; x++)
                 {
-                    _grid[x, y] = new Block(false,false);
+                    _grid[x+y*_width] = new Block(false,false);
                 }
             }
 
         }
 
-
+        public void DestroyGameObjects()
+        {
+            foreach(var block in _grid)
+            {
+                block.DestroyGameObjects();
+            }
+        }
         public void Update(float deltaTime)
         {
-            for(int x = 0; x < +_height; x++)
+            for(int y = 0; y < +_height; y++)
             {
-                for(int y = 0;y< _width; y++)
+                for(int x = 0;x< _width; x++)
                 {
-                    _grid[x, y].Update(deltaTime);
+                    _grid[x + y * _width].Update(deltaTime);
                 }
             }
         }
@@ -47,7 +63,7 @@ namespace Assets.Scripts
             int xPos = (int)Math.Floor(x / _cellSize);
             int yPos = (int)Math.Floor(y / _cellSize);
 
-            return _grid[yPos, xPos];
+            return _grid[xPos + _width * yPos];
         }
 
         public void SetVisibility(float x, float y, float time)
@@ -55,21 +71,21 @@ namespace Assets.Scripts
             int xPos = GetCoords(x);
             int yPos = GetCoords(y);
 
-            _grid[yPos, xPos].SetVisibility(time);
+            _grid[xPos + _width * yPos].SetVisibility(time);
         }
-        public void AddBlockInfo(float x, float y, IBlockInfo blockInfo)
+        public void AddBlockInfo(float x, float y, BlockInfo blockInfo)
         {
             int xPos = GetCoords(x);
             int yPos = GetCoords(y);
 
-            _grid[yPos, xPos].AddBlockInfo(blockInfo);
+            _grid[xPos + _width * yPos].AddBlockInfo(blockInfo);
         }
         public void SetPath(float x, float y, bool isPath)
         {
             int xPos = GetCoords(x);
             int yPos = GetCoords(y);
 
-            _grid[yPos, xPos].IsPathway = isPath;
+            _grid[xPos + _width * yPos].IsPathway = isPath;
         }
 
         int GetCoords(float z)
