@@ -87,13 +87,13 @@ namespace Assets.Scripts
 
         }
 
-        public void CreateGameObject(Map map)
+        public void CreateGameObject(Transform parent)
         {
             if (_blockInfos != null)
             {
                 foreach (var blockInfo in _blockInfos)
                 {
-                    blockInfo.CreateGameObject(map);
+                    blockInfo.CreateGameObject(parent);
 
                 }
             }

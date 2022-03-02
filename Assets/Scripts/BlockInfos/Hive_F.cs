@@ -16,18 +16,17 @@ namespace Assets.Scripts.BlockInfos
 
 
 
-        public Hive_F(Vector3 position,float expiryTime)
+        public Hive_F(Vector3 position,float expiryTime,Transform parent)
         {
-            UnityObject = Resources.Load<GameObject>("Prefabs/Hive_F");
             this._expiryTime = expiryTime;
             this.CreatedAt = DateTime.UtcNow;
-            Position = position;
-
+            Position = new Vector3(position.x,position.y,position.z);
+            CreateGameObject(parent);
         }
 
-        public override void CreateGameObject(Map map)
+        public override void CreateGameObject(Transform parent)
         {
-            _parent = map.transform;
+            _parent = parent;
             UnityObject = GameObject.Instantiate((GameObject)Resources.Load("Prefabs/Hive_F"), Position, Quaternion.identity, _parent);
         }
 

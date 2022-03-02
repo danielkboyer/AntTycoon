@@ -9,7 +9,7 @@ namespace Assets.Scripts.BlockInfos
 {
     public class Enemy : BlockInfo
     {
-        public override void CreateGameObject(Map map)
+        public override void CreateGameObject(Transform map)
         {
             throw new NotImplementedException();
         }

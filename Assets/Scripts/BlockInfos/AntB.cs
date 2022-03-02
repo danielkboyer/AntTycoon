@@ -21,7 +21,7 @@ namespace Assets.Scripts.BlockInfos
             Position = new Vector3(ant.transform.position.x, ant.transform.position.y, ant.transform.position.z);
         }
 
-        public override void CreateGameObject(Map map)
+        public override void CreateGameObject(Transform map)
         {
             
         }

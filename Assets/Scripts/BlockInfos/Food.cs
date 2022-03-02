@@ -38,9 +38,9 @@ namespace Assets.Scripts.BlockInfos
         }
         
 
-        public override void CreateGameObject(Map map)
+        public override void CreateGameObject(Transform parent)
         {
-            _parent = map.transform;
+            _parent = parent;
             UnityObject = GameObject.Instantiate((GameObject)Resources.Load("Prefabs/Food"), Position, Quaternion.identity, _parent);
         }
     }

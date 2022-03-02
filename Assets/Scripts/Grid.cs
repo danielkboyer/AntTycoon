@@ -96,13 +96,13 @@ namespace Assets.Scripts
             return (int)Math.Floor(z / _cellSize);
         }
 
-        public void CreateGameObjects(Map map)
+        public void CreateGameObjects(Transform parent)
         {
             if(_grid != null)
             {
                 foreach(var grid in _grid)
                 {
-                    grid.CreateGameObject(map);
+                    grid.CreateGameObject(parent);
                 }
             }
         }

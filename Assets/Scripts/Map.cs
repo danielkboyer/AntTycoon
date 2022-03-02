@@ -103,7 +103,7 @@ public class Map : MonoBehaviour, IMap
     public void LoadGameObjects()
     {
         if (_grid != null)
-            _grid.CreateGameObjects(this);
+            _grid.CreateGameObjects(transform);
     }
     public void CreateBlankMap()
     {

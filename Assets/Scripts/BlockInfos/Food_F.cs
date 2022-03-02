@@ -10,7 +10,7 @@ namespace Assets.Scripts.BlockInfos
     [Serializable]
     public class Food_F: BlockInfo
     {
-        public override void CreateGameObject(Map map)
+        public override void CreateGameObject(Transform parent)
         {
             throw new NotImplementedException();
         }
