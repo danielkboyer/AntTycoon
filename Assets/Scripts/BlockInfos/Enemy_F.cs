@@ -3,19 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
 
 namespace Assets.Scripts.BlockInfos
 {
-    public class Enemy_F:IBlockInfo
+    public class Enemy_F:BlockInfo
     {
-        public DateTime CreatedAt { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public override void CreateGameObject(Transform map)
+        {
+            throw new NotImplementedException();
+        }
 
-        public bool DeleteMe()
+        public new bool DeleteMe()
         {
             return false;
         }
 
-        public void Update(float deltaTime)
+        public new void Update(float deltaTime)
         {
             throw new NotImplementedException();
         }

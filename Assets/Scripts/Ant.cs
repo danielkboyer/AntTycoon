@@ -18,7 +18,6 @@ public class Ant : MonoBehaviour, IAnt
     public NavigationStatus NavStatus;
     public AntStatus Status;
     public IMap Map;
-    public GameObject Hive_F;
     public float Hive_F_Expiry;
     public int SightDistance;
     // Start is called before the first frame update
@@ -68,9 +67,8 @@ public class Ant : MonoBehaviour, IAnt
             if (_currentBlock == null || _currentBlock != futureBlock)
             {
                 _currentBlock = futureBlock;
-                Destroy(Instantiate(Hive_F, transform.position, Quaternion.identity), Hive_F_Expiry);
 
-                Map.AddBlockInfo(mapCoords.x, mapCoords.z, new Hive_F(Hive_F_Expiry));
+                Map.AddBlockInfo(mapCoords.x, mapCoords.z, new Hive_F(this.transform.position,Hive_F_Expiry,Map.GetTransform()));
                 Map.AddBlockInfo(mapCoords.x, mapCoords.z, new AntB(this));
             }
             transform.position = newPos;

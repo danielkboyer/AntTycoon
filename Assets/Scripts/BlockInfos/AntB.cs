@@ -3,29 +3,35 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
 
 namespace Assets.Scripts.BlockInfos
 {
-    public class AntB : IBlockInfo
+    public class AntB : BlockInfo
     {
         public NavigationStatus NavStatus;
         public AntStatus Status;
+
+     
         public AntB(Ant ant)
         {
             this.Status = ant.Status;
             this.NavStatus = ant.NavStatus;
             this.CreatedAt = DateTime.UtcNow;
+            Position = new Vector3(ant.transform.position.x, ant.transform.position.y, ant.transform.position.z);
         }
-        public DateTime CreatedAt
+
+        public override void CreateGameObject(Transform map)
         {
-            get; set;
+            
         }
-        public bool DeleteMe()
+
+        public new bool DeleteMe()
         {
             return true;
         }
 
-        public void Update(float deltaTime)
+        public new void Update(float deltaTime)
         {
             return;
         }

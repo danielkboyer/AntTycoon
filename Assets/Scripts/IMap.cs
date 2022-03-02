@@ -28,7 +28,7 @@ public interface IMap
     /// <param name="y"></param>
     /// <param name="type"></param>
     /// <returns></returns>
-    void AddBlockInfo(float x, float y, IBlockInfo blockInfo);
+    void AddBlockInfo(float x, float y, BlockInfo blockInfo);
 
     void SetVisibility(float x, float y, float time);
 

@@ -3,25 +3,45 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
 
 namespace Assets.Scripts
 {
+    [Serializable]
     public class Block
     {
+        
         public int Activity;
         public bool IsPathway;
         public bool IsVisible;
-
-
-        private List<IBlockInfo> _blockInfos;
+        [SerializeReference]
+        private List<BlockInfo> _blockInfos;
+        [SerializeField]
         private float _visibleTime;
 
 
+        public Block()
+        {
+            _blockInfos = new List<BlockInfo>();
+        }
         public Block(bool isPathWay, bool isVisible)
         {
             IsPathway = isPathWay;
             IsVisible = isVisible;
-            _blockInfos = new List<IBlockInfo>();
+            _blockInfos = new List<BlockInfo>();
+        }
+
+        public void DestroyGameObjects()
+        {
+            if (_blockInfos != null)
+            {
+                foreach (var blockInfo in _blockInfos)
+                {
+                    if (blockInfo.UnityObject != null)
+                        GameObject.DestroyImmediate(blockInfo.UnityObject, true);
+
+                }
+            }
         }
 
         public void SetVisibility(float time)
@@ -34,7 +54,7 @@ namespace Assets.Scripts
             IsVisible = true;
         }
 
-        public void AddBlockInfo(IBlockInfo info)
+        public void AddBlockInfo(BlockInfo info)
         {
             Activity++;
             _blockInfos.Add(info);
@@ -65,6 +85,18 @@ namespace Assets.Scripts
 
             
 
+        }
+
+        public void CreateGameObject(Transform parent)
+        {
+            if (_blockInfos != null)
+            {
+                foreach (var blockInfo in _blockInfos)
+                {
+                    blockInfo.CreateGameObject(parent);
+
+                }
+            }
         }
     }
 }

@@ -3,15 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using Assets.Scripts;
 using System;
+using Assets.Scripts.PersistentStorage;
+using System.Runtime.Serialization;
+using Assets.Scripts.BlockInfos;
 
 [RequireComponent(typeof(MeshFilter))]
 public class Map : MonoBehaviour, IMap
 {
+    [SerializeField]
     private Assets.Scripts.Grid _grid;
-
+    [SerializeField]
     Vector3[] vertices;
-
+    [SerializeField]
     int[] triangles;
+    [SerializeField]
     Color[] colors;
     public Color GroundColor;
     public Color PathColor;
@@ -75,7 +80,7 @@ public class Map : MonoBehaviour, IMap
     }
 
 
-    public void AddBlockInfo(float x, float y, IBlockInfo blockInfo)
+    public void AddBlockInfo(float x, float y, BlockInfo blockInfo)
     {
         _grid.AddBlockInfo(x, y, blockInfo);
     }
@@ -88,16 +93,40 @@ public class Map : MonoBehaviour, IMap
     // Start is called before the first frame update
     void Start()
     {
-        _grid = new Assets.Scripts.Grid(XSize+1, ZSize+1, CellSpace);
-        mesh = new Mesh();
-        GetComponent<MeshFilter>().mesh = mesh;
+    }
 
+    public void DestroyGameObjects()
+    {
+        if(_grid != null)
+            _grid.DestroyGameObjects();
+    }
+    public void LoadGameObjects()
+    {
+        if (_grid != null)
+            _grid.CreateGameObjects(transform);
+    }
+    public void CreateBlankMap()
+    {
+        DestroyGameObjects();
+        _grid = new Assets.Scripts.Grid(XSize + 1, ZSize + 1, CellSpace);
+        
         CreateShape();
+        UpdateMesh();
+    }
+    public void Init()
+    {
+        
+        //CreateShape();
         UpdateMesh();
     }
 
     void UpdateMesh()
     {
+        if(mesh == null)
+        {
+            mesh = new Mesh();
+            GetComponent<MeshFilter>().mesh = mesh;
+        }
         mesh.Clear();
         mesh.vertices = vertices;
         mesh.triangles = triangles;
@@ -148,10 +177,6 @@ public class Map : MonoBehaviour, IMap
                 i++;
             }
         }
-        colors[0] = PathColor;
-        colors[1] = PathColor;
-        colors[51] = PathColor;
-        colors[52] = PathColor;
 
     }
 
