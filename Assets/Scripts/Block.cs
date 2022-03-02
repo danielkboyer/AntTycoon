@@ -33,13 +33,15 @@ namespace Assets.Scripts
 
         public void DestroyGameObjects()
         {
-            foreach(var blockInfo in _blockInfos)
+            if (_blockInfos != null)
             {
-                if(blockInfo.UnityObject != null)
-                    GameObject.DestroyImmediate(blockInfo.UnityObject,true);
+                foreach (var blockInfo in _blockInfos)
+                {
+                    if (blockInfo.UnityObject != null)
+                        GameObject.DestroyImmediate(blockInfo.UnityObject, true);
 
+                }
             }
-            _blockInfos = new List<BlockInfo>();
         }
 
         public void SetVisibility(float time)
@@ -83,6 +85,18 @@ namespace Assets.Scripts
 
             
 
+        }
+
+        public void CreateGameObject(Map map)
+        {
+            if (_blockInfos != null)
+            {
+                foreach (var blockInfo in _blockInfos)
+                {
+                    blockInfo.CreateGameObject(map);
+
+                }
+            }
         }
     }
 }

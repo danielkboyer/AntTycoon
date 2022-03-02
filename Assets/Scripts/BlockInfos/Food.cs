@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,11 +9,10 @@ using UnityEngine;
 namespace Assets.Scripts.BlockInfos
 {
     [Serializable]
-    public class Food : BlockInfo,ISerializationCallbackReceiver
+    public class Food : BlockInfo
     {
-
+        
         public bool AtHive;
-        private Transform _parent { get; set; }
         public new bool DeleteMe()
         {
             if (AtHive)
@@ -36,15 +36,11 @@ namespace Assets.Scripts.BlockInfos
         {
             
         }
+        
 
-        public void OnBeforeSerialize()
+        public override void CreateGameObject(Map map)
         {
-            GameObject.DestroyImmediate(UnityObject,true);
-        }
-
-        public void OnAfterDeserialize()
-        {
-            _parent = GameObject.FindObjectOfType<Map>().transform;
+            _parent = map.transform;
             UnityObject = GameObject.Instantiate((GameObject)Resources.Load("Prefabs/Food"), Position, Quaternion.identity, _parent);
         }
     }

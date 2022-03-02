@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public Camera camera;
+    public Camera mainCam;
 
     public Map Map;
     // Start is called before the first frame update
     void Start()
     {
-        
+        mainCam = Camera.main;
+        Map = FindObjectOfType<Map>();
     }
 
     // Update is called once per frame
@@ -19,7 +20,7 @@ public class Player : MonoBehaviour
         if (Input.GetMouseButton(0))
         {
             RaycastHit hit;
-            var ray = camera.ScreenPointToRay(Input.mousePosition);
+            var ray = mainCam.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out hit, 100))
             {
                 if (hit.transform.tag == "Map")

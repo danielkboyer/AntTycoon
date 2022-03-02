@@ -9,13 +9,17 @@ namespace Assets.Scripts.BlockInfos
 {
     public class Enemy_F:BlockInfo
     {
+        public override void CreateGameObject(Map map)
+        {
+            throw new NotImplementedException();
+        }
 
-        public bool DeleteMe()
+        public new bool DeleteMe()
         {
             return false;
         }
 
-        public void Update(float deltaTime)
+        public new void Update(float deltaTime)
         {
             throw new NotImplementedException();
         }

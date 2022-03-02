@@ -18,6 +18,7 @@ namespace Assets.Scripts
         [SerializeField]
         public Vector3 Position;
 
+        protected Transform _parent;
 
 
 
@@ -31,6 +32,8 @@ namespace Assets.Scripts
         {
 
         }
+
+        public abstract void CreateGameObject(Map map);
 
         
     }

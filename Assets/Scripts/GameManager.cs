@@ -28,7 +28,6 @@ public class GameManager : MonoBehaviour
         StorageManager.WriteFile("Campaigns/", "Map", JsonUtility.ToJson(Map), false);
         StorageManager.WriteFile("Campaigns/", "Player", JsonUtility.ToJson(Player), false);
         Debug.Log("Saved Start Level.....");
-        LoadStartLevel();
     }
 
     public void CreateBlankMap()
@@ -40,8 +39,10 @@ public class GameManager : MonoBehaviour
     public void LoadStartLevel()
     {
         Debug.Log("Loading Start Level.....");
+        Map.DestroyGameObjects();
         JsonUtility.FromJsonOverwrite(StorageManager.ReadFile("Campaigns/", "Map", false), Map);
         JsonUtility.FromJsonOverwrite(StorageManager.ReadFile("Campaigns/", "Player", false), Player);
+        Map.LoadGameObjects();
         Map.Init();
         Debug.Log("Loaded Start Level.....");
     }

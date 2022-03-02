@@ -68,7 +68,7 @@ public class Ant : MonoBehaviour, IAnt
             {
                 _currentBlock = futureBlock;
 
-                Map.AddBlockInfo(mapCoords.x, mapCoords.z, new Hive_F(Hive_F_Expiry));
+                Map.AddBlockInfo(mapCoords.x, mapCoords.z, new Hive_F(this.transform.position,Hive_F_Expiry));
                 Map.AddBlockInfo(mapCoords.x, mapCoords.z, new AntB(this));
             }
             transform.position = newPos;

@@ -95,9 +95,19 @@ public class Map : MonoBehaviour, IMap
     {
     }
 
+    public void DestroyGameObjects()
+    {
+        if(_grid != null)
+            _grid.DestroyGameObjects();
+    }
+    public void LoadGameObjects()
+    {
+        if (_grid != null)
+            _grid.CreateGameObjects(this);
+    }
     public void CreateBlankMap()
     {
-        _grid.DestroyGameObjects();
+        DestroyGameObjects();
         _grid = new Assets.Scripts.Grid(XSize + 1, ZSize + 1, CellSpace);
         
         CreateShape();

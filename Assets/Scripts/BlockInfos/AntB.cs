@@ -18,15 +18,20 @@ namespace Assets.Scripts.BlockInfos
             this.Status = ant.Status;
             this.NavStatus = ant.NavStatus;
             this.CreatedAt = DateTime.UtcNow;
+            Position = new Vector3(ant.transform.position.x, ant.transform.position.y, ant.transform.position.z);
         }
-       
 
-        public bool DeleteMe()
+        public override void CreateGameObject(Map map)
+        {
+            
+        }
+
+        public new bool DeleteMe()
         {
             return true;
         }
 
-        public void Update(float deltaTime)
+        public new void Update(float deltaTime)
         {
             return;
         }

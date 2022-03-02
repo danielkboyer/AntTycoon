@@ -16,19 +16,27 @@ namespace Assets.Scripts.BlockInfos
 
 
 
-        public Hive_F(float expiryTime)
+        public Hive_F(Vector3 position,float expiryTime)
         {
             UnityObject = Resources.Load<GameObject>("Prefabs/Hive_F");
             this._expiryTime = expiryTime;
             this.CreatedAt = DateTime.UtcNow;
+            Position = position;
 
         }
-        public bool DeleteMe()
+
+        public override void CreateGameObject(Map map)
+        {
+            _parent = map.transform;
+            UnityObject = GameObject.Instantiate((GameObject)Resources.Load("Prefabs/Hive_F"), Position, Quaternion.identity, _parent);
+        }
+
+        public new bool DeleteMe()
         {
             return _deleteMe;
         }
 
-        public void Update(float deltaTime)
+        public new void Update(float deltaTime)
         {
             _expiryTime -= deltaTime;
             if(_expiryTime < 0)

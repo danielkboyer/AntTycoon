@@ -43,9 +43,12 @@ namespace Assets.Scripts
 
         public void DestroyGameObjects()
         {
-            foreach(var block in _grid)
+            if (_grid != null)
             {
-                block.DestroyGameObjects();
+                foreach (var block in _grid)
+                {
+                    block.DestroyGameObjects();
+                }
             }
         }
         public void Update(float deltaTime)
@@ -91,6 +94,17 @@ namespace Assets.Scripts
         int GetCoords(float z)
         {
             return (int)Math.Floor(z / _cellSize);
+        }
+
+        public void CreateGameObjects(Map map)
+        {
+            if(_grid != null)
+            {
+                foreach(var grid in _grid)
+                {
+                    grid.CreateGameObject(map);
+                }
+            }
         }
     }
 }
