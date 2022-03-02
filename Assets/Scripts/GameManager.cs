@@ -12,6 +12,10 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        foreach(Transform child in Map.transform)
+        {
+            Destroy(child.gameObject);
+        }
         LoadStartLevel();
     }
 
@@ -32,12 +36,24 @@ public class GameManager : MonoBehaviour
 
     public void CreateBlankMap()
     {
+        GameObject[] toDestroy = new GameObject[Map.transform.childCount];
+        int x = 0;
+        foreach (Transform child in Map.transform)
+        {
+            toDestroy[x] = child.gameObject;
+            x++;
+        }
+        foreach(var gameObject in toDestroy)
+        {
+            DestroyImmediate(gameObject, true);
+        }
         Debug.Log("Creating Blank Map.....");
         Map.CreateBlankMap();
         Debug.Log("Created Blank Map......");
     }
     public void LoadStartLevel()
     {
+        
         Debug.Log("Loading Start Level.....");
         Map.DestroyGameObjects();
         JsonUtility.FromJsonOverwrite(StorageManager.ReadFile("Campaigns/", "Map", false), Map);

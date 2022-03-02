@@ -13,7 +13,7 @@ namespace Assets.Scripts.BlockInfos
     {
         
         public bool AtHive;
-        public new bool DeleteMe()
+        public override bool DeleteMe()
         {
             if (AtHive)
             {
@@ -32,7 +32,7 @@ namespace Assets.Scripts.BlockInfos
             UnityObject = GameObject.Instantiate((GameObject)Resources.Load("Prefabs/Food"), position, Quaternion.identity);
             CreatedAt = DateTime.UtcNow;
         }
-        public new void Update(float deltaTime)
+        public override void Update(float deltaTime)
         {
             
         }

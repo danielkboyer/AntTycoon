@@ -15,12 +15,12 @@ namespace Assets.Scripts.BlockInfos
             throw new NotImplementedException();
         }
 
-        public new bool  DeleteMe()
+        public override bool  DeleteMe()
         {
             return false;
         }
 
-        public new void Update(float deltaTime)
+        public override void Update(float deltaTime)
         {
             throw new NotImplementedException();
         }

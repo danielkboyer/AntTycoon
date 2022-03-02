@@ -6,10 +6,12 @@ using System.Threading.Tasks;
 using UnityEngine;
 namespace Assets.Scripts.BlockInfos
 {
+    [Serializable]
     public class Hive_F : BlockInfo
     {
+        [SerializeField]
         private bool _deleteMe = false;
-
+        [SerializeField]
         private float _expiryTime;
 
       
@@ -30,12 +32,12 @@ namespace Assets.Scripts.BlockInfos
             UnityObject = GameObject.Instantiate((GameObject)Resources.Load("Prefabs/Hive_F"), Position, Quaternion.identity, _parent);
         }
 
-        public new bool DeleteMe()
+        public override bool DeleteMe()
         {
             return _deleteMe;
         }
 
-        public new void Update(float deltaTime)
+        public override void Update(float deltaTime)
         {
             _expiryTime -= deltaTime;
             if(_expiryTime < 0)

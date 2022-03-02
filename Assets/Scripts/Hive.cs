@@ -26,10 +26,10 @@ public class Hive : MonoBehaviour
                 zP += Spacing;
             }
             var position = this.transform.position;
-            position.x += xP;
+            position.x = xP;
             position.z = zP;
 
-            var ant = Instantiate(AntPrefab, position, this.transform.rotation).GetComponent<Ant>();
+            var ant = Instantiate(AntPrefab, position, Quaternion.identity).GetComponent<Ant>();
             ant.Map = Map;
         }
     }

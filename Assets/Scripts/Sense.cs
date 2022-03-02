@@ -12,6 +12,12 @@ namespace Assets.Scripts
         public Block Block;
         public float Angle;
 
+        public Sense(float distance, Block block, float angle)
+        {
+            this.Distance = distance;
+            this.Block = block;
+            this.Angle = angle;
+        }
 
     }
 }

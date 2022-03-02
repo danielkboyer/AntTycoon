@@ -20,6 +20,7 @@ public class Ant : MonoBehaviour, IAnt
     public IMap Map;
     public float Hive_F_Expiry;
     public int SightDistance;
+    public float SightStep;
     // Start is called before the first frame update
     void Start()
     {
@@ -32,15 +33,28 @@ public class Ant : MonoBehaviour, IAnt
         if (NavStatus == NavigationStatus.NAVIGATING)
             MoveRandom();
         else if (NavStatus == NavigationStatus.RETURNING)
-            FoodNav();
+            ReturnToHive();
         
     }
 
+    //TODO
     List<Sense> GetSenses()
     {
-        return null;
+        List<Sense> senses = new List<Sense>();
+        var direction = transform.forward;
+
+        Vector3 currentPos = direction;
+        float x = 0;
+        while(x < SightDistance)
+        {
+
+            senses.Add(new Sense(x, Map.GetBlock(1,1),1));
+            x += SightStep;
+
+        }
+        return senses;
     }
-    void FoodNav()
+    void ReturnToHive()
     {
 
     }

@@ -26,12 +26,12 @@ namespace Assets.Scripts.BlockInfos
             
         }
 
-        public new bool DeleteMe()
+        public override bool DeleteMe()
         {
             return true;
         }
 
-        public new void Update(float deltaTime)
+        public override void Update(float deltaTime)
         {
             return;
         }

@@ -23,12 +23,12 @@ namespace Assets.Scripts
 
 
 
-        public bool DeleteMe()
+        public virtual bool DeleteMe()
         {
             return false;
         }
 
-        public void Update(float deltaTime)
+        public virtual void Update(float deltaTime)
         {
 
         }
