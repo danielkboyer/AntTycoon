@@ -29,6 +29,10 @@ public class Spawner :MonoBehaviour
 
     void Spawn()
     {
-        Instantiate(AntPrefab, this.transform.position, Quaternion.identity);
+        var UnityObject = Instantiate(AntPrefab, this.transform.position, Quaternion.identity,Map.transform);
+        var antScript = UnityObject.GetComponent<Ant>();
+        antScript.NavStatus = NavigationStatus.NAVIGATING;
+        
+        antScript.CurrentFood = null;
     }
 }

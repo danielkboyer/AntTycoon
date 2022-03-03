@@ -12,6 +12,7 @@ public class MapBuilder : Editor
     private bool addFood;
     private bool addHive;
     private bool addAnt;
+    private bool addSpawner;
     Color GroundColor;
     Color PathColor;
     int XSize;
@@ -101,6 +102,31 @@ public class MapBuilder : Editor
             }
         }
 
+        if ((e.type == EventType.MouseDown || e.type == EventType.MouseDrag) && e.button == 0 && addSpawner)
+        {
+            RaycastHit hit;
+            var ray = HandleUtility.GUIPointToWorldRay(e.mousePosition);
+            if (Physics.Raycast(ray, out hit, 100))
+            {
+                if (hit.transform.tag == "Map")
+                {
+
+                    var pos = hit.transform.InverseTransformPoint(hit.point);
+                    map.AddBlockInfo(pos.x, pos.z, new SpawnerB(new Vector3(pos.x, pos.y, pos.z), map.transform));
+
+                }
+            }
+        }
+
+    }
+
+    public void SetSelectionsFalse()
+    {
+        paint = false;
+        addFood = false;
+        addHive = false;
+        addAnt = false;
+        addSpawner = false;
     }
     public override void OnInspectorGUI()
     {
@@ -127,50 +153,34 @@ public class MapBuilder : Editor
         }
         if (GUILayout.Toggle(paint, "Paint"))
         {
+            SetSelectionsFalse();
             paint = true;
-            addFood = false;
-            addHive = false;
-            addAnt = false;
-        }
-        else
-        {
-            paint = false;
+            
         }
 
         if(GUILayout.Toggle(addFood,"Add Food"))
         {
-            paint = false;
+            SetSelectionsFalse();
             addFood = true;
-            addHive = false;
-            addAnt = false;
-        }
-        else
-        {
-            addFood = false;
+            
         }
 
         if(GUILayout.Toggle(addHive, "Add Hive"))
         {
-            paint = false;
-            addFood = false;
+            SetSelectionsFalse();
             addHive = true;
-            addAnt = false;
         }
-        else
-        {
-            addHive = false;
-        }
+       
 
         if (GUILayout.Toggle(addAnt, "Add Ant"))
         {
-            paint = false;
-            addFood = false;
-            addHive = false;
+            SetSelectionsFalse();
             addAnt = true;
         }
-        else
+        if (GUILayout.Toggle(addSpawner, "Add Spawner"))
         {
-            addAnt = false;
+            SetSelectionsFalse();
+            addSpawner = true;
         }
         serializedObject.ApplyModifiedProperties();
     }

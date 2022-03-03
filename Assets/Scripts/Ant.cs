@@ -106,7 +106,7 @@ public class Ant : MonoBehaviour, IAnt
         {
             var senses = GetSenses();
             var topPriority = senses.Dequeue();
-            Debug.Log($"Navigation Priority: {topPriority.Block.GetNavigationScore(topPriority.Distance)}");
+            //Debug.Log($"Navigation Priority: {topPriority.Block.GetNavigationScore(topPriority.Distance)}");
             direction = topPriority.Angle;
             turnAmount = direction / DecisionRate;
             
