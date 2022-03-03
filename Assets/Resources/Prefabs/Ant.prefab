@@ -112,14 +112,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7383d5f606354564785a85c0ce0b8dd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TurnRadius: 150
-  DecisionRate: 1
+  TurnRadius: 300
+  DecisionRate: 0.5
   Speed: 0.62
   RotSpeed: 1
   NavStatus: 0
-  Status: 0
-  Hive_F_Expiry: 1
-  SightDistance: 0
+  Lay_F_Time: 10
+  Hive_F_Expiry: 10
+  Food_F_Expiry: 10
+  SightDistance: 2
+  SightStep: 0.15
+  CurrentFood:
+    Position: {x: 0, y: 0, z: 0}
+    AtHive: 0
 --- !u!54 &2359154459944403667
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -132,9 +137,9 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 80
   m_CollisionDetection: 0
 --- !u!114 &-6556071584200556712
 MonoBehaviour:

@@ -30,6 +30,19 @@ public class Map : MonoBehaviour, IMap
         return _grid.GetObj(x, y);
     }
 
+
+    public bool HasFood(float x, float y)
+    {
+        return _grid.HasFood(x, y);
+    }
+    public Food GetFood(float x, float y)
+    {
+        return _grid.GetFood(x, y);
+    }
+    public bool IsHive(float x, float y)
+    {
+        return _grid.IsHive(x, y);
+    }
     public void Update()
     {
         _grid.Update(Time.deltaTime);

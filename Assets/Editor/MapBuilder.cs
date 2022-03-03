@@ -10,6 +10,8 @@ public class MapBuilder : Editor
 {
     private bool paint;
     private bool addFood;
+    private bool addHive;
+    private bool addAnt;
     Color GroundColor;
     Color PathColor;
     int XSize;
@@ -61,11 +63,44 @@ public class MapBuilder : Editor
                 {
 
                     var pos = hit.transform.InverseTransformPoint(hit.point);
-                    map.AddBlockInfo(pos.x, pos.z,new Food(new Vector3(pos.x,pos.y,pos.z)));
+                    map.AddBlockInfo(pos.x, pos.z,new Food(new Vector3(pos.x,pos.y,pos.z),map.transform));
 
                 }
             }
         }
+
+        if ((e.type == EventType.MouseDown || e.type == EventType.MouseDrag) && e.button == 0 && addHive)
+        {
+            RaycastHit hit;
+            var ray = HandleUtility.GUIPointToWorldRay(e.mousePosition);
+            if (Physics.Raycast(ray, out hit, 100))
+            {
+                if (hit.transform.tag == "Map")
+                {
+
+                    var pos = hit.transform.InverseTransformPoint(hit.point);
+                    map.AddBlockInfo(pos.x, pos.z, new HiveB(new Vector3(pos.x, pos.y, pos.z),map.transform));
+
+                }
+            }
+        }
+
+        if ((e.type == EventType.MouseDown || e.type == EventType.MouseDrag) && e.button == 0 && addAnt)
+        {
+            RaycastHit hit;
+            var ray = HandleUtility.GUIPointToWorldRay(e.mousePosition);
+            if (Physics.Raycast(ray, out hit, 100))
+            {
+                if (hit.transform.tag == "Map")
+                {
+
+                    var pos = hit.transform.InverseTransformPoint(hit.point);
+                    map.AddBlockInfo(pos.x, pos.z, new AntB(NavigationStatus.NAVIGATING,null,new Vector3(pos.x, pos.y, pos.z), map.transform));
+
+                }
+            }
+        }
+
     }
     public override void OnInspectorGUI()
     {
@@ -94,6 +129,8 @@ public class MapBuilder : Editor
         {
             paint = true;
             addFood = false;
+            addHive = false;
+            addAnt = false;
         }
         else
         {
@@ -104,10 +141,36 @@ public class MapBuilder : Editor
         {
             paint = false;
             addFood = true;
+            addHive = false;
+            addAnt = false;
         }
         else
         {
             addFood = false;
+        }
+
+        if(GUILayout.Toggle(addHive, "Add Hive"))
+        {
+            paint = false;
+            addFood = false;
+            addHive = true;
+            addAnt = false;
+        }
+        else
+        {
+            addHive = false;
+        }
+
+        if (GUILayout.Toggle(addAnt, "Add Ant"))
+        {
+            paint = false;
+            addFood = false;
+            addHive = false;
+            addAnt = true;
+        }
+        else
+        {
+            addAnt = false;
         }
         serializedObject.ApplyModifiedProperties();
     }

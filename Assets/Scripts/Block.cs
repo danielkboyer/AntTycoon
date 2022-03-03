@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets.Scripts.BlockInfos;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -29,6 +30,82 @@ namespace Assets.Scripts
             IsPathway = isPathWay;
             IsVisible = isVisible;
             _blockInfos = new List<BlockInfo>();
+        }
+
+        public float GetReturnScore(float distance)
+        {
+            if (!IsPathway)
+                return float.MinValue;
+
+            if (_blockInfos.Any(t => t is Enemy))
+            {
+                return 1500 - distance;
+            }
+            if(_blockInfos.Any(t=> t is HiveB))
+            {
+                return 1250 - distance;
+            }
+            if (_blockInfos.Any(t => t is Hive_F))
+            {
+
+                return 1000 - _blockInfos.Where(t => t is Hive_F).Select(t => (Hive_F)(t)).Min(t => t.GetExpiryTime());
+
+            }
+
+            return Activity + distance;
+
+        }
+
+        public bool HasFood()
+        {
+            return _blockInfos.Any(t => t is Food);
+        }
+
+        public bool IsHive()
+        {
+            return _blockInfos.Any(t => t is HiveB);
+        }
+
+        public Food GetFood()
+        {
+            if(_blockInfos.Any(t=>t is Food))
+            {
+                var food = (Food)_blockInfos.First(t => t is Food);
+                _blockInfos.Remove(food);
+                return food;
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// The higher the navigation score the better chance the ant will choose this block
+        /// </summary>
+        /// <returns></returns>
+        public float GetNavigationScore(float distance)
+        {
+            if (!IsPathway)
+                return float.MinValue;
+
+            if (_blockInfos.Any(t => t is Enemy))
+            {
+                return 1500 - distance;
+            }
+            if (_blockInfos.Any(t=> t is Food))
+            {
+                return 1250 - distance;
+
+            }
+
+            if(_blockInfos.Any(t=> t is Food_F))
+            {
+                //TODO add time for food pheramones
+                return 80 - _blockInfos.Where(t => t is Food_F).Select(t => (Food_F)(t)).Min(t => t.GetExpiryTime());
+            }
+
+
+            return (-Activity) + distance;
+
+
         }
 
         public void DestroyGameObjects()

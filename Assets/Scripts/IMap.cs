@@ -1,4 +1,5 @@
 using Assets.Scripts;
+using Assets.Scripts.BlockInfos;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -34,5 +35,10 @@ public interface IMap
 
     void SetPath(float x, float y, bool isPath);
 
+    Food GetFood(float x, float y);
+
+    bool HasFood(float x, float y);
+
+    bool IsHive(float x, float y);
     Transform GetTransform();
 }

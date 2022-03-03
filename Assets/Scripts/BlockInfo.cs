@@ -33,7 +33,7 @@ namespace Assets.Scripts
 
         }
 
-        public abstract void CreateGameObject(Transform map);
+        public abstract void CreateGameObject(Transform parent);
 
         
     }

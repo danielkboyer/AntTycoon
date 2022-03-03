@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets.Scripts.BlockInfos;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -39,6 +40,30 @@ namespace Assets.Scripts
                 }
             }
 
+        }
+
+        public bool HasFood(float x, float y)
+        {
+            int xPos = (int)Math.Floor(x / _cellSize);
+            int yPos = (int)Math.Floor(y / _cellSize);
+
+            return _grid[xPos + yPos * _width].HasFood();
+        }
+
+        public bool IsHive(float x, float y)
+        {
+            int xPos = (int)Math.Floor(x / _cellSize);
+            int yPos = (int)Math.Floor(y / _cellSize);
+
+            return _grid[xPos + yPos * _width].IsHive();
+        }
+
+        public Food GetFood(float x, float y)
+        {
+            int xPos = (int)Math.Floor(x / _cellSize);
+            int yPos = (int)Math.Floor(y / _cellSize);
+
+            return _grid[xPos + yPos * _width].GetFood();
         }
 
         public void DestroyGameObjects()

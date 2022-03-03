@@ -25,11 +25,11 @@ namespace Assets.Scripts.BlockInfos
         {
             
         }
-        public Food(Vector3 position)
+        public Food(Vector3 position, Transform parent)
         {
-            _parent = GameObject.FindObjectOfType<Map>().transform;
+            _parent = parent;
             Position = position;
-            UnityObject = GameObject.Instantiate((GameObject)Resources.Load("Prefabs/Food"), position, Quaternion.identity);
+            UnityObject = GameObject.Instantiate((GameObject)Resources.Load("Prefabs/Food"), position, Quaternion.identity,parent);
             CreatedAt = DateTime.UtcNow;
         }
         public override void Update(float deltaTime)

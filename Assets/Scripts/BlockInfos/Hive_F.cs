@@ -25,7 +25,10 @@ namespace Assets.Scripts.BlockInfos
             Position = new Vector3(position.x,position.y,position.z);
             CreateGameObject(parent);
         }
-
+        public float GetExpiryTime()
+        {
+            return _expiryTime;
+        }
         public override void CreateGameObject(Transform parent)
         {
             _parent = parent;
