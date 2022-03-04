@@ -7,6 +7,9 @@ public class Player : MonoBehaviour
     public Camera mainCam;
 
     public Map Map;
+
+    public Transform LeftHand;
+    private bool draw;
     // Start is called before the first frame update
     void Start()
     {
@@ -32,5 +35,31 @@ public class Player : MonoBehaviour
             }
             
         }
+
+        if (draw)
+        {
+            RaycastHit hit;
+            if (Physics.Raycast(LeftHand.position, LeftHand.forward, out hit, 100))
+            {
+                if (hit.transform.tag == "Map")
+                {
+                    Debug.Log(hit.transform.tag);
+                    Debug.Log(hit.transform.InverseTransformPoint(hit.point));
+                    var point = hit.transform.InverseTransformPoint(hit.point);
+
+                    Map.Paint(point.x,point.z,1);
+                }
+            }
+        }
+    }
+
+    public void TriggerStart()
+    {
+        draw = true;
+    }
+
+    public void TriggerEnd()
+    {
+        draw = false;
     }
 }

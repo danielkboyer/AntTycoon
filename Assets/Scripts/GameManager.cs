@@ -29,8 +29,8 @@ public class GameManager : MonoBehaviour
     public void SaveStartLevel()
     {
         Debug.Log("Saving Start Level.....");
-        StorageManager.WriteFile("Campaigns/", "Map", JsonUtility.ToJson(Map), false);
-        StorageManager.WriteFile("Campaigns/", "Player", JsonUtility.ToJson(Player), false);
+        StorageManager.WriteFile("Resources/Campaigns/", "Map.txt", JsonUtility.ToJson(Map), false);
+        StorageManager.WriteFile("Resources/Campaigns/", "Player.txt", JsonUtility.ToJson(Player), false);
         Debug.Log("Saved Start Level.....");
     }
 
